@@ -29,17 +29,6 @@ console.log(photographers)
     
     init();
     
-// FISHEYE logo Link
-
-
-
-let logoLink  = document.getElementById ("logo")
-logoLink.alt = "Fisheye Home page";
-logoLink.addEventListener("click", goHomePage);
-
-function goHomePage () {
-document.location.href = "/";
-}
 
 
 

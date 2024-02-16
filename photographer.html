@@ -35,12 +35,30 @@
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
+        <div class="photographerNameDiv"> </div>
 				<form>
 					<div>
 						<label>Prénom</label>
-						<input />
+              <input class="text-control" type="text" id="first" name="first"/>
+              <br>
+              <span id="errorFirstName" class="error"></span>
+             
+            <label>Nom</label>
+            <input class="text-control" type="text" id="surname" name="surname"/>
+            <br>
+            <span id="errorSurname" class="error"></span>
+
+            <label>Email</label>
+            <input class="text-control" type="text" id="email" name="email"/>
+            <br>
+            <span id="errorEmail" class="error"></span>
+            
+            
+
+            <label>Votre message</label><input class="messageLines"/>
+				
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" id="buttonModal">Envoyer</button>
 				</form>
 			</div>
 		</div>

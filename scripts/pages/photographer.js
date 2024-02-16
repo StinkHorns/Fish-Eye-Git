@@ -10,6 +10,7 @@ async function getPhotographers() {
 async function displayData(photographers, media) {
     const photographerHeader = document.getElementById("photographerHeader");
     const gallery = document.getElementById("photographerGallery");
+    let addedTotalLikes = 0;
 
     //let params = new URLSearchParams (document.location.search)
     //params.get("id")
@@ -24,15 +25,22 @@ async function displayData(photographers, media) {
 
     });
 
+    const totalCounter = document.getElementById("totalCounter");
+
     media.forEach((singlePhoto)=> {
         const imageModel = getFotos(singlePhoto,idSelected);
-        //console.log ("imagemodel :" + imageModel.photographerId);
         const imageCardDOM = imageModel.getImageInfo();
         if (imageCardDOM) {
             gallery.appendChild(imageCardDOM);
-
+            addedTotalLikes +=singlePhoto.likes;
+            console.log("added" + addedTotalLikes)
+            
         }
+
     })
+
+    totalCounter.textContent = addedTotalLikes;
+    
 }
 
 async function init() {
@@ -42,7 +50,9 @@ async function init() {
 
     console.log (photographers);
     displayData(photographers, media);
+    addingHeartLikes(); // adding clicks on hearts function
     addClickHomepage(); //adding the click for homepage
+    
 }
 
 
@@ -57,6 +67,29 @@ function addClickHomepage() {
     }
 }
 
+//Adding likes function
+function addingHeartLikes(){
+
+   let heartIconList = document.getElementsByName("heartClick");
+
+   heartIconList.forEach((singleHeart)=> {
+        singleHeart.addEventListener("click" , addOneLike);
+        function addOneLike () {
+            console.log(singleHeart.id);
+            const spanValueLikes = document.getElementById("likesId"+singleHeart.id);
+            const totalCounter = document.getElementById("totalCounter");
+            spanValueLikes.textContent = parseInt (spanValueLikes.textContent) +1;
+            totalCounter.textContent = parseInt (totalCounter.textContent) +1;
+            singleHeart.removeEventListener("click", addOneLike); //only one click, then stops click
+        }
+
+    
+})
+}
+
+
+
+
 function getIdSelected () {
     let params = new URLSearchParams (document.location.search)
     let idSelected = params.get("id")
@@ -67,7 +100,7 @@ function getIdSelected () {
 
 function photographerTemplate(data,idSelect) {
 
-    const {id, name, city, country, tagline, portrait } = data;
+    const {id, name, city, country, tagline, portrait, price } = data;
 
     const picture = `assets/photographers/${portrait}`;
     
@@ -93,16 +126,49 @@ function photographerTemplate(data,idSelect) {
             img.setAttribute("src", picture)
             img.alt ="Image " + name 
             img.classList.add ("fotoImg")
-        
+
+           
+
             contentLeft.appendChild(h2);
             contentLeft.appendChild(line2);
             contentLeft.appendChild(line3);
             contentRight.appendChild(img); 
-        }
 
+   // Modal with Potographers name
+
+        const modalName = document.createElement("section");
+        modalName.classList.add("modalName");
+        modalName.innerHTML = name;
+
+    
+        document.querySelector("#contact_modal > div > div").appendChild(modalName);
+       
+
+        // Counter Likes and Price
+
+        const counterLikesAndPrice = document.createElement("div");
+        counterLikesAndPrice.classList.add("styleCounter");
+
+        const priceDay = document.createElement("div");
+        priceDay.classList.add("stylePriceDay");
+
+        const totalCounter = document.createElement("div");
+        totalCounter.classList.add("totalCounter");
+        
+
+
+        totalCounter.innerHTML = "<span id=\"totalCounter\">  </span>" + " <i class=\"fa-solid fa-heart\"></i>";
+        priceDay.innerHTML = price + "€ &nbsp;" +"/ jour";
+
+        document.body.appendChild(counterLikesAndPrice);
+        counterLikesAndPrice.appendChild(totalCounter);
+        counterLikesAndPrice.appendChild(priceDay);
+
+        
+     }
     }
 
-    return { name, city, country, tagline, picture, photographerInfo }
+    return { name, city, country, tagline, picture, price, photographerInfo }
 }
 
 

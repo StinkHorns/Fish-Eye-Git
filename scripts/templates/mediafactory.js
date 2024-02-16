@@ -30,7 +30,7 @@ function getFotos(data, idSelect) {
             likesAndHeart.classList.add("styleLikesHeart");
            
             figCaption.textContent = title;
-            likesAndHeart.innerHTML = likes +"&nbsp; <i class=\"fa-solid fa-heart\"></i>";
+            likesAndHeart.innerHTML = "<span id=\"likesId" +id+"\" >" + likes + "</span> <i name=\"heartClick\" id= " + id +" class=\"fa-solid fa-heart pointerHover\"  > </i>";
           
            
             captionAndLikes.appendChild(figCaption);

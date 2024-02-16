@@ -22,7 +22,6 @@
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: auto;
     margin-right: auto;
 }
 
@@ -30,13 +29,22 @@
     border-radius: 5px;
     background-color: #DB8876;
     width: 50%;
-    display: flex;
-    flex-direction: column;
+    
+  flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 35px;
     margin: auto;
+
+    position: fixed;
+    left: 50%;
+    top: 0%;
+    margin-left: -25%;
+    
+
+
 }
+
 
 .modal header {
     justify-content: space-between;
@@ -45,6 +53,7 @@
 
 .modal header img {
     cursor: pointer;
+    margin-right: 0;
   
 }
 
@@ -52,6 +61,15 @@
     font-size: 64px;
     font-weight: normal;
     text-align: center;
+
+    }
+
+
+.modalName{
+    
+    font-size: 64px;
+    font-weight: normal;
+    text-align: left;
 }
 
 form {
@@ -81,6 +99,11 @@ form input {
     border-radius: 5px;
 }
 
+.messageLines{
+    text-wrap: wrap;
+    height: 170px;
+}
+
 .h2photographers {
     color: #D3573C;
     font-family: DM Sans;
@@ -90,6 +113,8 @@ form input {
     line-height: 83.33px;
     
 }
+
+
 
 
 .line2p{
@@ -133,6 +158,10 @@ form input {
     margin-right: 200px;
 }
 
+.stylesgallery{
+    max-width: 350px;
+}
+
 .fotoImg {
     object-fit: cover;
     width: 200px;
@@ -160,6 +189,44 @@ form input {
     font-weight: 500;  
 }
 
+.styleCounter{
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border-radius: 5px;
+    background: #DB8876;
+    width: 376px;
+    height: 89px;
+    flex-shrink: 0; 
+    display: flex;    
+    justify-content: space-between;
 
+    }
 
+.stylePriceDay{
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal; 
+    width: 170px;
+    }
 
+   .totalCounter{
+    width: 100px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: right;
+    font-family: "DM Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    
+   }
+
+.pointerHover:hover{
+  cursor: pointer;  
+}

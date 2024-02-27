@@ -1,16 +1,19 @@
+import {openLB} from "../utils/lightbox.js";
+
+
 //2 photos renommées pour photograph 195
 
 // Affichage fotos
 //attention pas de async on this function
-function getFotos(data, idSelect) {
+export function getFotos(data, media) {
   
-    const {id, photographerId, title, image, video, likes, date, price} = data;
+    const {id, photographerId, title, image, video, likes} = data;
 
-    //console.log(idSelect + " id select and photoid = " + photographerId);
+console.log(data)
 
     function getImageInfo() {
         
-        if (photographerId == idSelect){
+     
 
             //the right photo
             const figure = document.createElement("figure");
@@ -37,19 +40,32 @@ function getFotos(data, idSelect) {
             captionAndLikes.appendChild(likesAndHeart);
             
            
-            
+            const path="./assets/photographers/" + photographerId + "/";
 
             if (image) {
                 img.src = "./assets/photographers/" + photographerId + "/" + image ;
                 figure.appendChild(img);
                 img.classList.add("portfolio");
+                img.classList.add("allMediaPortfolio");
+                img.alt=title;
+            
+                img.addEventListener("click" , ()=>{openLB(data, media, path)});
+
             }
+
+
 
             if (video) { 
                 videoSource.src = "./assets/photographers/" + photographerId + "/" + video ;
                 videoSource.type="video/mp4";
-                videoHtml.controls=true;
+                videoSource.alt=title;
+                videoHtml.classList.add("allMediaPortfolio");
+                videoHtml.alt=title;
                 videoHtml.appendChild(videoSource);
+                videoHtml.addEventListener("click" , ()=>{openLB(data, media, path)});
+
+
+                //videoHtml.classList.add("allMediaPortfolio");
                 figure.appendChild(videoHtml);
             }    
 
@@ -57,16 +73,14 @@ function getFotos(data, idSelect) {
            
             
             return (figure);
-        }
-        else {
-            //not the right photo
-            return null;
-        }
+      
     }
       
-    return { photographerId, title, image, video, likes, idSelect, getImageInfo }
+    return { photographerId, title, image, video, likes, getImageInfo }
 
 }
+
+
 
 
 

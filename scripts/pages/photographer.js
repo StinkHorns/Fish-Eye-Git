@@ -1,3 +1,6 @@
+import { getFotos } from "../templates/mediafactory.js";
+
+
 //Mettre le code JavaScript lié à la page photographer.html
 async function getPhotographers() {
     let data = await fetch ("./data/photographers.json");
@@ -28,7 +31,7 @@ async function displayData(photographers, media) {
     const totalCounter = document.getElementById("totalCounter");
 
     media.forEach((singlePhoto)=> {
-        const imageModel = getFotos(singlePhoto,idSelected);
+        const imageModel = getFotos(singlePhoto,media);
         const imageCardDOM = imageModel.getImageInfo();
         if (imageCardDOM) {
             gallery.appendChild(imageCardDOM);
@@ -45,14 +48,17 @@ async function displayData(photographers, media) {
 
 async function init() {
     // Récupère les datas des photographes { photographers } only Json file, not { media}, but {photographers,media}récupère tout
-    const { photographers, media } = await getPhotographers();
+    let { photographers, media } = await getPhotographers();
     //const { media } = await getPhotographers();
-
-    console.log (photographers);
+    let idSelect=getIdSelected()
+    media=media.filter(item=>item.photographerId==idSelect);
+    
+    console.log (media);
     displayData(photographers, media);
     addingHeartLikes(); // adding clicks on hearts function
     addClickHomepage(); //adding the click for homepage
-    
+
+       
 }
 
 
@@ -106,7 +112,7 @@ function photographerTemplate(data,idSelect) {
     
     function photographerInfo() {
         const contentLeft = document.getElementById("contentLeft");
-        contentRight = document.getElementById("contentRight");
+        const contentRight = document.getElementById("contentRight");
         const h2 = document.createElement( 'h2' );
         const line2 = document.createElement( 'p' );
         const line3 = document.createElement( 'p' );
@@ -172,5 +178,9 @@ function photographerTemplate(data,idSelect) {
 }
 
 
+
 // calling the init of the photographer page
 init();
+
+
+

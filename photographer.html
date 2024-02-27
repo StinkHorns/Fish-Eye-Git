@@ -22,7 +22,15 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         <div id="contentRight"> </div>
       </div>
-      
+          
+  <!-- LigthBox Modal -->
+    <br><br>
+    <a href="#" id="openLightBox">Open LightBox</a>
+    <br>
+
+
+
+
 
 <div id="photographerGallery"> </div>
 
@@ -61,8 +69,35 @@
 				</form>
 			</div>
 		</div>
-    <script src="/scripts/templates/mediafactory.js"></script>
-    <script src="/scripts/pages/photographer.js"></script>
+
+
+    <!-- LigthBox Modal -->
+    <br><br><br>
+
+   
+
+    
+    <div id="lightboxModal" class="lightboxModal">  
+
+      <section class="mainConteinerLB">
+
+        
+
+        <div class="ContentLightBox">
+          
+          <i class="fa-solid fa-chevron-left iconLB"></i>
+          <div id="contentLB"> </div>
+          <a href="#" id="closeLightBox"><i class="fa-solid fa-xmark fa-xlg "></i>  </a>
+          <i class="fa-solid fa-chevron-right iconLB"></i>    
+        </div>  
+
+      </section>
+    </div>
+   
+
+
+    <script src="/scripts/templates/mediafactory.js" type="module"></script>
+    <script src="/scripts/pages/photographer.js" type="module"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
 </html>

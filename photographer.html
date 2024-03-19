@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+  
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -22,14 +23,33 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
         <div id="contentRight"> </div>
       </div>
-          
+
+
+
+<!-- Systeme de Tri -->
+<div action="/photographer.html" method="get" id="formTri">
+
+<input type="hidden" name="id" id="id">
+
+<section id="systemeTri">
+
+  <label for="" class="menuIntro"> Trier par </label>
+
+  <select name="triMenu" class="triMenu" id="triMenu">
+   
+    <option value="popularite" id="popularOrder"> Popularité</option> 
+    <hr class="whiteLine"> 
+    <option value="date">Date</option>
+    <hr class="whiteLine">
+    <option value="titre">Titre</option>
+
+  </select> 
+
+</section>
+</div>
+
+
   <!-- LigthBox Modal -->
-    <br><br>
-    <a href="#" id="openLightBox">Open LightBox</a>
-    <br>
-
-
-
 
 
 <div id="photographerGallery"> </div>
@@ -41,24 +61,24 @@
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" alt="close"  onclick="closeModal()" />
         </header>
         <div class="photographerNameDiv"> </div>
 				<form>
 					<div>
-						<label>Prénom</label>
+						<label for="first">Prénom</label>
               <input class="text-control" type="text" id="first" name="first"/>
-              <br>
+        
               <span id="errorFirstName" class="error"></span>
              
-            <label>Nom</label>
+            <label for="surname">Nom</label>
             <input class="text-control" type="text" id="surname" name="surname"/>
-            <br>
+         
             <span id="errorSurname" class="error"></span>
 
-            <label>Email</label>
+            <label for="email">Email</label>
             <input class="text-control" type="text" id="email" name="email"/>
-            <br>
+           
             <span id="errorEmail" class="error"></span>
                         
 
@@ -71,6 +91,7 @@
 		</div>
 
 
+
     <!-- LigthBox Modal -->
     <br><br><br>
 
@@ -79,16 +100,17 @@
     
     <div id="lightboxModal" class="lightboxModal">  
 
-      <section class="mainConteinerLB">
+      <section class="mainContainerLB">
 
         
 
         <div class="ContentLightBox">
           
-          <i class="fa-solid fa-chevron-left iconLB"></i>
+          <i class="fa-solid fa-chevron-left iconLB" id="previous"></i>
           <div id="contentLB"> </div>
-          <a href="#" id="closeLightBox"><i class="fa-solid fa-xmark fa-xlg "></i>  </a>
-          <i class="fa-solid fa-chevron-right iconLB"></i>    
+         
+          <i class="fa-solid fa-chevron-right iconLB" id="next"></i>     
+          <i class="fa-solid fa-xmark fa-xlg " id="closeLightBox"></i>  
         </div>  
 
       </section>

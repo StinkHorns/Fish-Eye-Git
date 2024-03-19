@@ -1,5 +1,10 @@
 import { getFotos } from "../templates/mediafactory.js";
 
+const triSelectValue = document.getElementById ("triMenu");
+let medias = [];
+let photographers = [];
+const gallery = document.getElementById("photographerGallery");
+
 
 //Mettre le code JavaScript lié à la page photographer.html
 async function getPhotographers() {
@@ -10,15 +15,22 @@ async function getPhotographers() {
    return photographers;
 }
 
+
+
 async function displayData(photographers, media) {
+ 
     const photographerHeader = document.getElementById("photographerHeader");
-    const gallery = document.getElementById("photographerGallery");
     let addedTotalLikes = 0;
 
     //let params = new URLSearchParams (document.location.search)
     //params.get("id")
     let idSelected = getIdSelected();
-    
+
+ 
+    let idPhotographer=document.getElementById("id");
+    idPhotographer.value= idSelected
+
+
     //console.log ("id=" +idSelected)
 
     photographers.forEach((photographer) => {
@@ -29,6 +41,9 @@ async function displayData(photographers, media) {
     });
 
     const totalCounter = document.getElementById("totalCounter");
+    //tri
+    //triSortingImages(media, triSelected);
+    
 
     media.forEach((singlePhoto)=> {
         const imageModel = getFotos(singlePhoto,media);
@@ -36,7 +51,7 @@ async function displayData(photographers, media) {
         if (imageCardDOM) {
             gallery.appendChild(imageCardDOM);
             addedTotalLikes +=singlePhoto.likes;
-            console.log("added" + addedTotalLikes)
+            //console.log("added" + addedTotalLikes)
             
         }
 
@@ -48,18 +63,24 @@ async function displayData(photographers, media) {
 
 async function init() {
     // Récupère les datas des photographes { photographers } only Json file, not { media}, but {photographers,media}récupère tout
+    
+
     let { photographers, media } = await getPhotographers();
     //const { media } = await getPhotographers();
-    let idSelect=getIdSelected()
+    let idSelect=getIdSelected();
+   
     media=media.filter(item=>item.photographerId==idSelect);
-    
-    console.log (media);
+    medias = media;
+    //console.log (media);
     displayData(photographers, media);
     addingHeartLikes(); // adding clicks on hearts function
     addClickHomepage(); //adding the click for homepage
 
-       
+    
+
 }
+
+
 
 
 // FISHEYE logo Link to homepage
@@ -81,7 +102,7 @@ function addingHeartLikes(){
    heartIconList.forEach((singleHeart)=> {
         singleHeart.addEventListener("click" , addOneLike);
         function addOneLike () {
-            console.log(singleHeart.id);
+            //console.log(singleHeart.id);
             const spanValueLikes = document.getElementById("likesId"+singleHeart.id);
             const totalCounter = document.getElementById("totalCounter");
             spanValueLikes.textContent = parseInt (spanValueLikes.textContent) +1;
@@ -104,6 +125,7 @@ function getIdSelected () {
 }
 
 
+
 function photographerTemplate(data,idSelect) {
 
     const {id, name, city, country, tagline, portrait, price } = data;
@@ -118,7 +140,7 @@ function photographerTemplate(data,idSelect) {
         const line3 = document.createElement( 'p' );
         const img = document.createElement( 'img' );
 
-        console.log("id="+ id)
+        //console.log("id="+ id)
 
         if (id == idSelect){
             h2.textContent = name;
@@ -176,6 +198,96 @@ function photographerTemplate(data,idSelect) {
 
     return { name, city, country, tagline, picture, price, photographerInfo }
 }
+
+// Tri Functions
+
+/*function getTriMenu () {
+    let params = new URLSearchParams (document.location.search)
+    let triMenu = params.get("triMenu")
+    
+    if (triMenu == null || triMenu== "") {
+    triMenu="date";
+    }
+
+
+    return triMenu;
+
+}*/
+
+
+
+function triSortingImages (media, triSelected){
+    console.log(media);
+
+    if (triSelected === "popularite" ){
+        media.sort(function (a, b) {
+            return b.likes - a.likes;
+        });
+    }
+    if (triSelected === "date" ){
+        media.sort(function (a, b) {
+            if (a.date < b.date) {
+                return -1;
+            }
+            if (a.date > b.date) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+    if (triSelected === "titre" ){
+
+        let result= media.sort(function (a, b) {
+            if (a.title < b.title) {
+                return -1;
+            }
+            if (a.title > b.title) {
+                return 1;
+            }
+            return 0;      
+
+        });
+        console.log(result);
+
+    }
+    console.log(media);
+gallery.innerHTML="";
+
+    media.forEach((singlePhoto)=> {
+        const imageModel = getFotos(singlePhoto,media);
+        const imageCardDOM = imageModel.getImageInfo();
+        if (imageCardDOM) {
+            gallery.appendChild(imageCardDOM);
+           // addedTotalLikes +=singlePhoto.likes;
+            //console.log("added" + addedTotalLikes)
+            
+        }
+
+    })
+}
+
+function selectTriOption(triSelected){
+     let optionsTriMenu = document.getElementById("triMenu").options;
+     //optionsTriMenu.forEach(optionTriMenu=>{
+        for(let i=0;i<optionsTriMenu.length;i++){
+          
+            if(optionsTriMenu[i].value==triSelected){
+                optionsTriMenu[i].selected=true
+        }
+        }
+
+    // } )
+}
+
+triSelectValue.addEventListener("change", ()=>{
+    console.log(triSelectValue.value);
+    triSortingImages(medias, triSelectValue.value);
+
+})
+
+
+
+
 
 
 

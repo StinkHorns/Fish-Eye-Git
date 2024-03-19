@@ -18,6 +18,7 @@ function photographerTemplate(data) {
 
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
+        h2.className="h2HomePage";
         photographerFoto.appendChild (h2);
 
         const line2 = document.createElement( 'p' );

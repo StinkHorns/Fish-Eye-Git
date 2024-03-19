@@ -9,7 +9,7 @@ export function getFotos(data, media) {
   
     const {id, photographerId, title, image, video, likes} = data;
 
-console.log(data)
+//console.log(data)
 
     function getImageInfo() {
         
